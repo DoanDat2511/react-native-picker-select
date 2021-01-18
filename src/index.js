@@ -57,6 +57,8 @@ export default class RNPickerSelect extends PureComponent {
         // Custom Icon
         Icon: PropTypes.func,
         InputAccessoryView: PropTypes.func,
+        useTextInput: PropTypes.bool
+
     };
 
     static defaultProps = {
@@ -85,6 +87,8 @@ export default class RNPickerSelect extends PureComponent {
         touchableWrapperProps: {},
         Icon: null,
         InputAccessoryView: null,
+         useTextInput: false,
+
     };
 
     static handlePlaceholder({ placeholder }) {
@@ -395,20 +399,42 @@ export default class RNPickerSelect extends PureComponent {
         }
 
         return (
-            <View pointerEvents="box-only" style={containerStyle}>
-                <TextInput
-                    testID="text_input"
-                    style={[
-                        Platform.OS === 'ios' ? style.inputIOS : style.inputAndroid,
-                        this.getPlaceholderStyle(),
-                    ]}
-                    value={selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label}
-                    ref={this.setInputRef}
-                    editable={false}
-                    {...textInputProps}
-                />
-                {this.renderIcon()}
-            </View>
+             <View pointerEvents = "box-only"
+          style = {
+              {
+                  ...containerStyle,
+                  justifyContent: "center",
+                  alignItems: "center"      } } > {
+              this.props.useTextInput === false ? < TextInput
+              testID = "text_input"
+              style = {
+                  [
+                      Platform.OS === 'ios' ? style.inputIOS : style.inputAndroid,
+                      this.getPlaceholderStyle(),
+                  ]
+              }
+              value = {
+                  selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label
+              }
+              ref = {
+                  this.setInputRef
+              }
+              editable = {
+                  false
+              } {
+                  ...textInputProps
+              }
+              /> : <Text numberOfLines={1}  style = { [
+              Platform.OS === 'ios' ? style.inputIOS : style.inputAndroid,
+              this.getPlaceholderStyle(),
+          ]
+          } > {
+              selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label
+          } 
+          </Text>} {
+              this.renderIcon()
+          } 
+          </View>
         );
     }
 
