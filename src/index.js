@@ -404,7 +404,8 @@ export default class RNPickerSelect extends PureComponent {
               {
                   ...containerStyle,
                   justifyContent: "center",
-                  alignItems: "center"      } } > {
+                  alignItems: "center"      } }>
+            {
               this.props.useTextInput === false ? < TextInput
               testID = "text_input"
               style = {
@@ -424,16 +425,19 @@ export default class RNPickerSelect extends PureComponent {
               } {
                   ...textInputProps
               }
-              /> : <Text numberOfLines={1}  style = { [
+              /> :
+               <Text numberOfLines={1}  
+               style = { [
               Platform.OS === 'ios' ? style.inputIOS : style.inputAndroid,
               this.getPlaceholderStyle(),
-          ]
-          } > {
-              selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label
-          } 
-          </Text>} {
-              this.renderIcon()
-          } 
+                  ]
+                     } > 
+                     
+              {selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label}
+          </Text>}
+           
+              {this.renderIcon()}
+           
           </View>
         );
     }
